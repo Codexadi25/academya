@@ -1,0 +1,26 @@
+.home{
+   align-items: center;
+}
+table{
+   display: none;
+}
+.banner{
+   background-image: url('./banner.jpeg');
+   height: 20%;
+   width: 100vw;
+   background-repeat: no-repeat;
+   mask-image: linear-gradient(to bottom, rgb(0, 0, 0), rgb(0, 0, 0) 30%, rgba(0, 0, 0, 0));
+
+}
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+   
+}
+
+
