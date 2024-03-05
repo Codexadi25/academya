@@ -1,7 +1,6 @@
 import React from 'react';
 import './Home.css';
-import banner from './banner.jpeg'
-import { ReactTyped } from "react-typed";
+import banner from './banner.jpeg';
 
 
 function Home() {
