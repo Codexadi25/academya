@@ -10,17 +10,7 @@ function Home() {
       <img src={banner} className='banner' alt='Academya-banner'/>
       <div className='Tagline'>
         <h1>Academya | </h1>
-        <ReactTyped
-          strings={[
-            "E-Learning",  
-            "Tution",
-            "Coaching",
-            "Consultancy",
-          ]}
-          typeSpeed={40}
-          backSpeed={50}
-          attr="placeholder"
-          loop></ReactTyped>
+        
       </div>
     </div>
   )
