@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Academya Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --red:#C41E1E;
+  --red2:#E03030;
+  --orange:#E8590A;
+  --dark:#0D0D0D;
+  --bg:#0F0F13;
+  --glass:rgba(255,255,255,0.06);
+  --glass2:rgba(255,255,255,0.10);
+  --border:rgba(255,255,255,0.10);
+  --border2:rgba(255,255,255,0.18);
+  --text:#F5F3EE;
+  --muted:rgba(245,243,238,0.5);
+  --radius:16px;
+  --radius-pill:999px;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:0;
+  overflow:hidden;
+  padding:0;
+}
+
+/* ─── RADIAL GLOW ─── */
+.glow-red{
+  position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(196,30,30,0.22) 0%, transparent 70%);
+  top:-120px;left:-100px;
+  pointer-events:none;z-index:1;
+}
+.glow-orange{
+  position:absolute;
+  width:500px;height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(232,89,10,0.15) 0%, transparent 70%);
+  bottom:-80px;right:30%;
+  pointer-events:none;z-index:1;
+}
+
+/* ─── LEFT CONTENT ─── */
+.hero-left{
+  position:relative;z-index:10;
+  padding:5rem 3rem 5rem 5rem;
+  display:flex;
+  flex-direction:column;
+  gap:2rem;
+}
+
+.pill-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(196,30,30,0.15);
+  border:1px solid rgba(196,30,30,0.3);
+  padding:6px 14px;
+  border-radius:var(--radius-pill);
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(255,160,160,0.9);
+  width:fit-content;
+  animation:fadeUp 0.6s ease both;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:#ff6b6b;animation:pulse 2s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.6rem,4.5vw,4.2rem);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-0.02em;
+  animation:fadeUp 0.7s 0.1s ease both;
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(120deg,#E03030,#E8590A);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-sub{
+  font-size:1.05rem;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:400px;
+  font-weight:400;
+  animation:fadeUp 0.7s 0.2s ease both;
+}
+
+.hero-cta{
+  font-size:0.95rem;
+  font-weight:700;
+  color:var(--text);
+  animation:fadeUp 0.7s 0.25s ease both;
+}
+
+/* ─── BUTTON GRID ─── */
+.btn-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  max-width:460px;
+  animation:fadeUp 0.7s 0.3s ease both;
+}
+.btn-full{grid-column:1/-1;}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:0.85rem 1.2rem;
+  border-radius:var(--radius);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.9rem;
+  font-weight:600;
+  cursor:pointer;border:none;
+  text-decoration:none;
+  transition:transform 0.18s cubic-bezier(.34,1.56,.64,1), box-shadow 0.18s ease, filter 0.18s ease;
+  letter-spacing:0.01em;
+  position:relative;
+  overflow:hidden;
+}
+.btn::after{
+  content:'';
+  position:absolute;inset:0;
+  background:rgba(255,255,255,0);
+  transition:background 0.18s;
+}
+.btn:hover::after{background:rgba(255,255,255,0.07);}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 28px rgba(0,0,0,0.35);}
+.btn:active{transform:scale(0.97);}
+
+.btn-wa{background:#1DA851;color:#fff;box-shadow:0 4px 20px rgba(29,168,81,0.3);}
+.btn-call{background:var(--glass2);color:var(--text);border:1px solid var(--border2);}
+.btn-teacher{background:linear-gradient(135deg,var(--red),#a01515);color:#fff;box-shadow:0 4px 20px rgba(196,30,30,0.35);}
+.btn-parent{background:linear-gradient(135deg,var(--orange),#c04800);color:#fff;box-shadow:0 4px 20px rgba(232,89,10,0.3);}
+.btn-comp{
+  background:transparent;color:var(--text);
+  border:1px solid var(--border2);
+  background:var(--glass);
+}
+.btn-comp:hover{border-color:rgba(255,255,255,0.35);}
+
+.btn-ico{font-size:1.15em;flex-shrink:0;}
+
+/* ─── DIVIDER ─── */
+.divider{
+  width:48px;height:3px;
+  background:linear-gradient(90deg,var(--red),var(--orange));
+  border-radius:3px;
+  animation:fadeUp 0.7s 0.15s ease both;
+}
+
+/* ─── RIGHT SVG PANEL ─── */
+.hero-right{
+  position:relative;z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  min-height:100vh;
+  overflow:hidden;
+}
+
+.svg-scene{
+  width:100%;
+  max-width:640px;
+  height:auto;
+}
+
+/* dark semi-transparent overlay on right side for depth */
+.hero-right::before{
+  content:'';
+  position:absolute;
+  left:0;top:0;bottom:0;width:80px;
+  background:linear-gradient(to right,var(--bg),transparent);
+  z-index:6;
+  pointer-events:none;
+}
+
+/* ─── FLOATING CARDS ─── */
+.float-card{
+  position:absolute;
+  background:rgba(20,20,28,0.88);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  padding:12px 16px;
+  z-index:20;
+  animation:floatUp 3s ease-in-out infinite;
+}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-card.fc1{top:18%;right:5%;animation-delay:0s;}
+.float-card.fc2{bottom:22%;right:3%;animation-delay:1.3s;}
+.fc-label{font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:2px;}
+.fc-val{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);}
+.fc-sub{font-size:0.72rem;color:rgba(100,220,150,0.9);font-weight:500;}
+
+/* ─── FOOTER ─── */
+footer{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:1.2rem;
+  color:rgba(255,255,255,0.2);
+  font-size:0.75rem;
+  border-top:1px solid rgba(255,255,255,0.05);
+  background:#0a0a0d;
+}
+footer span{color:var(--red);}
+
+/* ─── MODAL ─── */
+.m-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.82);
+  z-index:500;
+  align-items:center;justify-content:center;
+  padding:1rem;
+  backdrop-filter:blur(4px);
+}
+.m-overlay.on{display:flex;animation:mIn 0.22s ease both;}
+@keyframes mIn{from{opacity:0}to{opacity:1}}
+
+.m-box{
+  background:#16161C;
+  border:1px solid var(--border2);
+  border-radius:20px;
+  width:100%;max-width:660px;
+  max-height:92vh;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 32px 80px rgba(0,0,0,0.6);
+  animation:mBox 0.3s cubic-bezier(.34,1.4,.64,1) both;
+}
+@keyframes mBox{
+  from{opacity:0;transform:translateY(36px) scale(0.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.m-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.4rem;
+  background:linear-gradient(90deg,rgba(196,30,30,0.9),rgba(200,60,20,0.9));
+  flex-shrink:0;
+}
+.m-head h3{
+  font-family:'Syne',sans-serif;
+  font-size:1.2rem;font-weight:700;
+  color:#fff;
+}
+.m-close{
+  background:rgba(255,255,255,0.15);
+  border:none;color:#fff;
+  width:32px;height:32px;border-radius:50%;
+  font-size:1.1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.15s;flex-shrink:0;
+}
+.m-close:hover{background:rgba(255,255,255,0.3);}
+
+.m-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.m-body iframe{width:100%;height:560px;border:none;display:block;}
+
+.m-loader{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:3rem 2rem;color:var(--muted);gap:1rem;
+}
+.spin{
+  width:36px;height:36px;
+  border:3px solid rgba(255,255,255,0.1);
+  border-top-color:var(--red);
+  border-radius:50%;
+  animation:sp 0.7s linear infinite;
+}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ─── 404 ─── */
+.p404{
+  display:none;
+  min-height:100vh;
+  align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;
+  background:#0a0a0d;padding:2rem;
+}
+.p404.on{display:flex;}
+.e-num{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(8rem,22vw,14rem);
+  font-weight:800;
+  background:linear-gradient(135deg,var(--red),var(--orange));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+}
+.e-title{font-family:'Syne',sans-serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;color:var(--text);margin:.3rem 0 .8rem;}
+.e-sub{color:var(--muted);font-size:.95rem;max-width:340px;margin-bottom:2rem;line-height:1.7;}
+.e-back{
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  color:#fff;border:none;padding:.85rem 2.4rem;border-radius:var(--radius-pill);
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:.95rem;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:transform 0.18s,filter 0.18s;
+}
+.e-back:hover{transform:translateY(-3px);filter:brightness(1.1);}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto;
+  }
+  .hero-left{
+    padding:4rem 2rem 1rem;
+    order:1;
+  }
+  .hero-right{
+    order:2;
+    min-height:auto;
+    padding:0 1rem 2rem;
+  }
+  .hero-right::before{display:none;}
+  .float-card{display:none;}
+  .glow-red{width:300px;height:300px;}
+}
+@media(max-width:520px){
+  .btn-grid{grid-template-columns:1fr;}
+  .btn-full{grid-column:1;}
+  .hero-left{padding:3rem 1.3rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ HOME PAGE ════════════ -->
+<div id="home-page">
+<section class="hero">
+
+  <!-- Glows -->
+  <div class="glow-red"></div>
+  <div class="glow-orange"></div>
+
+  <!-- LEFT -->
+  <div class="hero-left">
+
+    <span class="pill-badge">
+      <span class="pill-dot"></span>
+      Now enrolling · 2025–26
+    </span>
+
+    <div class="divider"></div>
+
+    <h1 class="hero-title">
+      Shaping<br/>
+      <em>Brilliant</em><br/>
+      Futures
+    </h1>
+
+    <p class="hero-sub">Expert consultancy connecting passionate teachers with eager learners. Competitive classes designed to help students excel beyond the classroom.</p>
+
+    <h6 class="hero-cta">Join our community of learners and educators today!</h6>
+
+    <div class="btn-grid">
+
+      <a class="btn btn-wa"
+         href="https://wa.me/?text=Hi%20Academya%21%20I%27d%20love%20to%20know%20more%20about%20your%20programs."
+         target="_blank" rel="noopener noreferrer">
+        <span class="btn-ico">💬</span> WhatsApp Us
+      </a>
+
+      <a class="btn btn-call" href="tel:+911234567890">
+        <span class="btn-ico">📞</span> Call Us
+      </a>
+
+      <button class="btn btn-teacher" onclick="openForm('Teacher')">
+        <span class="btn-ico">🎓</span> I'm a Teacher
+      </button>
+
+      <button class="btn btn-parent" onclick="openForm('Parent / Student')">
+        <span class="btn-ico">👨‍👩‍👧</span> I'm Parent / Student
+      </button>
+
+      <a class="btn btn-comp btn-full"
+         href="https://wa.me/?text=Hi%20Academya%21%20I%27m%20interested%20in%20Competition%20Classes."
+         target="_blank" rel="noopener noreferrer">
+        <span class="btn-ico">🏆</span> Competition Classes
+      </a>
+
+    </div>
+  </div>
+
+  <!-- RIGHT – SVG ILLUSTRATION -->
+  <div class="hero-right">
+
+    <!-- Floating stat cards -->
+    <div class="float-card fc1">
+      <div class="fc-label">Students enrolled</div>
+      <div class="fc-val">2,400+</div>
+      <div class="fc-sub">↑ 18% this year</div>
+    </div>
+
+    <div class="float-card fc2">
+      <div class="fc-label">Pass rate</div>
+      <div class="fc-val">97%</div>
+      <div class="fc-sub">↑ top percentile</div>
+    </div>
+
+    <!-- Teacher & Student SVG Scene -->
+    <svg class="svg-scene" viewBox="0 0 520 700" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <!-- Board gradient -->
+        <linearGradient id="boardGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#1e1030"/>
+          <stop offset="100%" stop-color="#120a24"/>
+        </linearGradient>
+        <!-- Glow filter -->
+        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="softglow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Floor gradient -->
+        <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1520"/>
+          <stop offset="100%" stop-color="#0f0d14"/>
+        </linearGradient>
+        <!-- Skin tones -->
+        <linearGradient id="skin1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F5C89A"/>
+          <stop offset="100%" stop-color="#E8A870"/>
+        </linearGradient>
+        <linearGradient id="skin2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FDDBB4"/>
+          <stop offset="100%" stop-color="#F0BA80"/>
+        </linearGradient>
+        <!-- Shirt gradients -->
+        <linearGradient id="teacherShirt" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#C41E1E"/>
+          <stop offset="100%" stop-color="#8B0E0E"/>
+        </linearGradient>
+        <linearGradient id="studentShirt" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#1a4d8f"/>
+          <stop offset="100%" stop-color="#0d2d5c"/>
+        </linearGradient>
+        <!-- Desk gradient -->
+        <linearGradient id="deskGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3d2a18"/>
+          <stop offset="100%" stop-color="#2a1a0d"/>
+        </linearGradient>
+        <!-- Book gradient -->
+        <linearGradient id="bookRed" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C41E1E"/>
+          <stop offset="100%" stop-color="#8B0E0E"/>
+        </linearGradient>
+        <linearGradient id="bookBlue" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2255AA"/>
+          <stop offset="100%" stop-color="#0d2d5c"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ── BACKGROUND ROOM ── -->
+      <!-- Floor -->
+      <rect x="0" y="530" width="520" height="170" fill="url(#floorGrad)" rx="0"/>
+      <!-- Floor line/shadow -->
+      <rect x="0" y="530" width="520" height="4" fill="rgba(255,255,255,0.04)"/>
+      <!-- Wall -->
+      <rect x="0" y="0" width="520" height="530" fill="#12101A"/>
+
+      <!-- Wall accent lines (architectural) -->
+      <line x1="0" y1="530" x2="520" y2="530" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="20" y="20" width="480" height="480" rx="0" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+      <!-- ── CHALKBOARD ── -->
+      <rect x="60" y="50" width="310" height="200" rx="8" fill="url(#boardGrad)"/>
+      <!-- Board frame -->
+      <rect x="55" y="45" width="320" height="210" rx="10" fill="none" stroke="#3d2a18" stroke-width="6"/>
+      <rect x="57" y="47" width="316" height="206" rx="9" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+
+      <!-- Board chalk lines (formula) -->
+      <!-- Title text area -->
+      <rect x="90" y="68" width="250" height="22" rx="3" fill="rgba(255,255,255,0.05)"/>
+      <text x="215" y="83" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.75)" letter-spacing="0.08em">ACADEMYA</text>
+
+      <!-- Chalk-drawn equations -->
+      <!-- E = mc² style lines -->
+      <line x1="85" y1="108" x2="165" y2="108" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="88" y="105" font-family="serif" font-size="13" fill="rgba(255,255,255,0.6)" font-style="italic">E = mc²</text>
+
+      <text x="88" y="128" font-family="serif" font-size="12" fill="rgba(255,180,180,0.55)" font-style="italic">∑(x) = α + β</text>
+
+      <!-- Graph drawn on board -->
+      <line x1="200" y1="170" x2="200" y2="100" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="195" y1="165" x2="295" y2="165" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- curve -->
+      <path d="M205 160 Q225 130 245 125 Q265 120 285 105" fill="none" stroke="#ff9944" stroke-width="2" stroke-linecap="round"/>
+      <!-- dots on graph -->
+      <circle cx="215" cy="153" r="3" fill="#ff9944" opacity="0.8"/>
+      <circle cx="245" cy="125" r="3" fill="#ff9944" opacity="0.8"/>
+      <circle cx="275" cy="110" r="3" fill="#ff9944" opacity="0.8"/>
+
+      <!-- Geometry shape -->
+      <polygon points="105,175 125,140 145,175" fill="none" stroke="rgba(100,180,255,0.55)" stroke-width="1.5"/>
+      <text x="115" y="195" font-family="serif" font-size="10" fill="rgba(120,200,255,0.5)" font-style="italic">60°</text>
+
+      <!-- chalk dust particles -->
+      <circle cx="72" cy="240" r="1.5" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="78" cy="245" r="1" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="68" cy="248" r="2" fill="rgba(255,255,255,0.1)"/>
+
+      <!-- ── CHALK TRAY ── -->
+      <rect x="57" y="252" width="316" height="10" rx="3" fill="#2a1a0d"/>
+      <!-- chalk pieces -->
+      <rect x="80" y="254" width="18" height="6" rx="3" fill="rgba(255,255,255,0.7)"/>
+      <rect x="102" y="254" width="14" height="6" rx="3" fill="rgba(255,200,200,0.6)"/>
+      <rect x="120" y="254" width="16" height="6" rx="3" fill="rgba(200,220,255,0.6)"/>
+
+      <!-- ── TEACHER ── -->
+      <!-- Body/torso -->
+      <rect x="108" y="400" width="70" height="90" rx="12" fill="url(#teacherShirt)"/>
+      <!-- collar -->
+      <path d="M128 400 L143 420 L158 400" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- tie -->
+      <path d="M143 400 L139 425 L143 435 L147 425 Z" fill="#FF8800" opacity="0.85"/>
+
+      <!-- Pants/legs -->
+      <rect x="110" y="486" width="28" height="55" rx="6" fill="#1a1230"/>
+      <rect x="142" y="486" width="28" height="55" rx="6" fill="#1a1230"/>
+
+      <!-- Shoes -->
+      <ellipse cx="124" cy="543" rx="16" ry="7" fill="#1a1a2a"/>
+      <ellipse cx="156" cy="543" rx="16" ry="7" fill="#1a1a2a"/>
+
+      <!-- Arms -->
+      <!-- Right arm (pointing at board) -->
+      <path d="M178 415 Q230 360 268 290" fill="none" stroke="url(#skin1)" stroke-width="14" stroke-linecap="round"/>
+      <!-- hand -->
+      <circle cx="270" cy="287" r="9" fill="url(#skin1)"/>
+      <!-- finger pointing -->
+      <line x1="270" y1="280" x2="268" y2="265" stroke="#E8A870" stroke-width="5" stroke-linecap="round"/>
+
+      <!-- Left arm (down at side) -->
+      <path d="M108 420 Q95 450 88 475" fill="none" stroke="url(#skin1)" stroke-width="14" stroke-linecap="round"/>
+      <!-- hand holding book -->
+      <rect x="70" y="460" width="32" height="38" rx="4" fill="url(#bookRed)"/>
+      <rect x="74" y="464" width="24" height="3" rx="1" fill="rgba(255,255,255,0.25)"/>
+      <rect x="74" y="470" width="20" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
+      <rect x="74" y="476" width="22" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="86" cy="477" r="12" fill="url(#skin1)" opacity="0.9"/>
+
+      <!-- Neck -->
+      <rect x="134" y="375" width="18" height="28" rx="6" fill="url(#skin1)"/>
+
+      <!-- Head -->
+      <ellipse cx="143" cy="355" rx="34" ry="36" fill="url(#skin1)"/>
+
+      <!-- Hair (teacher – neat, short) -->
+      <path d="M110 340 Q113 310 143 308 Q173 310 176 340 Q170 325 143 322 Q116 325 110 340Z" fill="#2C1A08"/>
+      <!-- side burns -->
+      <rect x="109" y="338" width="8" height="15" rx="3" fill="#2C1A08"/>
+      <rect x="170" y="338" width="8" height="15" rx="3" fill="#2C1A08"/>
+
+      <!-- Face -->
+      <!-- Eyes -->
+      <ellipse cx="133" cy="352" rx="5" ry="5.5" fill="white"/>
+      <ellipse cx="153" cy="352" rx="5" ry="5.5" fill="white"/>
+      <circle cx="134" cy="352" r="3.5" fill="#2C1A08"/>
+      <circle cx="154" cy="352" r="3.5" fill="#2C1A08"/>
+      <circle cx="135" cy="351" r="1.2" fill="white" opacity="0.8"/>
+      <circle cx="155" cy="351" r="1.2" fill="white" opacity="0.8"/>
+      <!-- Eyebrows -->
+      <path d="M127 345 Q133 342 139 344" fill="none" stroke="#2C1A08" stroke-width="2" stroke-linecap="round"/>
+      <path d="M147 344 Q153 342 159 345" fill="none" stroke="#2C1A08" stroke-width="2" stroke-linecap="round"/>
+      <!-- Nose -->
+      <path d="M141 357 Q139 363 141 365 Q143 367 145 365 Q147 363 145 357" fill="none" stroke="rgba(180,120,60,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Smile -->
+      <path d="M133 372 Q143 378 153 372" fill="none" stroke="#C07040" stroke-width="2" stroke-linecap="round"/>
+      <!-- Glasses -->
+      <rect x="126" y="348" width="16" height="10" rx="3" fill="none" stroke="#555" stroke-width="1.5"/>
+      <rect x="146" y="348" width="16" height="10" rx="3" fill="none" stroke="#555" stroke-width="1.5"/>
+      <line x1="142" y1="353" x2="146" y2="353" stroke="#555" stroke-width="1.5"/>
+      <line x1="126" y1="353" x2="120" y2="352" stroke="#555" stroke-width="1.5"/>
+      <line x1="162" y1="353" x2="168" y2="352" stroke="#555" stroke-width="1.5"/>
+
+      <!-- ── STUDENT DESK ── -->
+      <!-- Desk surface -->
+      <rect x="290" y="440" width="195" height="15" rx="4" fill="url(#deskGrad)"/>
+      <!-- desk edge highlight -->
+      <rect x="290" y="440" width="195" height="3" rx="2" fill="rgba(255,255,255,0.12)"/>
+      <!-- Desk legs -->
+      <rect x="300" y="454" width="12" height="80" rx="3" fill="#2a1a0d"/>
+      <rect x="462" y="454" width="12" height="80" rx="3" fill="#2a1a0d"/>
+
+      <!-- Items on desk -->
+      <!-- Open notebook -->
+      <rect x="305" y="415" width="80" height="26" rx="3" fill="#f5f0e8"/>
+      <line x1="345" y1="415" x2="345" y2="441" stroke="#ddd" stroke-width="0.8"/>
+      <line x1="315" y1="421" x2="340" y2="421" stroke="#ccc" stroke-width="0.8"/>
+      <line x1="315" y1="426" x2="340" y2="426" stroke="#ccc" stroke-width="0.8"/>
+      <line x1="315" y1="431" x2="338" y2="431" stroke="#ccc" stroke-width="0.8"/>
+      <line x1="350" y1="421" x2="375" y2="421" stroke="#ccc" stroke-width="0.8"/>
+      <line x1="350" y1="426" x2="373" y2="426" stroke="#ccc" stroke-width="0.8"/>
+      <!-- Pencil -->
+      <rect x="395" y="430" width="60" height="5" rx="2.5" fill="#f0c040" transform="rotate(-8,395,430)"/>
+      <path d="M451 424 L456 427 L451 430 Z" fill="#ffaaaa" transform="rotate(-8,395,430)"/>
+      <!-- Stacked books -->
+      <rect x="430" y="408" width="45" height="12" rx="2" fill="url(#bookBlue)"/>
+      <rect x="432" y="395" width="41" height="12" rx="2" fill="#2a7a2a"/>
+      <rect x="433" y="383" width="39" height="12" rx="2" fill="#7a4a1a"/>
+
+      <!-- ── STUDENT ── -->
+      <!-- Legs/pants -->
+      <rect x="320" y="486" width="28" height="60" rx="6" fill="#2244AA"/>
+      <rect x="352" y="486" width="28" height="60" rx="6" fill="#2244AA"/>
+
+      <!-- Shoes -->
+      <ellipse cx="334" cy="548" rx="16" ry="7" fill="#1a1a2a"/>
+      <ellipse cx="366" cy="548" rx="16" ry="7" fill="#1a1a2a"/>
+
+      <!-- Body -->
+      <rect x="316" y="400" width="68" height="90" rx="12" fill="url(#studentShirt)"/>
+      <!-- hoodie pocket -->
+      <path d="M330 455 Q350 460 370 455 L370 480 Q350 485 330 480 Z" fill="rgba(0,0,0,0.2)"/>
+      <!-- logo on shirt -->
+      <text x="350" y="425" text-anchor="middle" font-family="'Syne',sans-serif" font-size="8" font-weight="700" fill="rgba(255,255,255,0.4)" letter-spacing="0.05em">A</text>
+
+      <!-- Left arm (writing) -->
+      <path d="M316 420 Q300 440 290 448" fill="none" stroke="url(#skin2)" stroke-width="13" stroke-linecap="round"/>
+      <circle cx="286" cy="449" r="10" fill="url(#skin2)"/>
+      <!-- holding pencil -->
+      <rect x="278" y="435" width="3" height="22" rx="1.5" fill="#f0c040" transform="rotate(30,280,440)"/>
+
+      <!-- Right arm (chin rest – thinking) -->
+      <path d="M384 418 Q395 440 400 455" fill="none" stroke="url(#skin2)" stroke-width="13" stroke-linecap="round"/>
+      <circle cx="400" cy="458" r="11" fill="url(#skin2)"/>
+
+      <!-- Neck -->
+      <rect x="342" y="378" width="16" height="26" rx="6" fill="url(#skin2)"/>
+
+      <!-- Head -->
+      <ellipse cx="350" cy="358" rx="32" ry="35" fill="url(#skin2)"/>
+
+      <!-- Hair (student – slightly messy/youthful) -->
+      <path d="M319 348 Q320 315 350 312 Q380 315 381 348 Q376 328 350 326 Q324 328 319 348Z" fill="#1A0A00"/>
+      <!-- casual hair tufts -->
+      <path d="M319 342 Q315 330 322 320" fill="none" stroke="#1A0A00" stroke-width="5" stroke-linecap="round"/>
+      <path d="M381 342 Q385 330 378 320" fill="none" stroke="#1A0A00" stroke-width="5" stroke-linecap="round"/>
+      <path d="M345 312 Q348 302 353 312" fill="none" stroke="#1A0A00" stroke-width="6" stroke-linecap="round"/>
+
+      <!-- Face -->
+      <!-- Eyes (wide, engaged) -->
+      <ellipse cx="339" cy="355" rx="5.5" ry="6" fill="white"/>
+      <ellipse cx="361" cy="355" rx="5.5" ry="6" fill="white"/>
+      <circle cx="340" cy="355" r="4" fill="#1A0A00"/>
+      <circle cx="362" cy="355" r="4" fill="#1A0A00"/>
+      <circle cx="341" cy="354" r="1.3" fill="white" opacity="0.85"/>
+      <circle cx="363" cy="354" r="1.3" fill="white" opacity="0.85"/>
+      <!-- Eyebrows (raised, curious) -->
+      <path d="M332 347 Q339 343 346 346" fill="none" stroke="#1A0A00" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M354 346 Q361 343 368 347" fill="none" stroke="#1A0A00" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Nose -->
+      <path d="M348 360 Q346 366 348 368 Q350 370 352 368 Q354 366 352 360" fill="none" stroke="rgba(180,120,60,0.55)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Open mouth (attentive/surprised expression) -->
+      <path d="M341 375 Q350 382 359 375" fill="none" stroke="#C07040" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- Backpack visible on back (simplified side view strap) -->
+      <path d="M316 410 Q305 420 305 450 Q305 460 312 465" fill="none" stroke="#E8590A" stroke-width="6" stroke-linecap="round"/>
+
+      <!-- ── THOUGHT BUBBLE from student ── -->
+      <circle cx="420" cy="290" r="6" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="432" cy="274" r="9" fill="rgba(255,255,255,0.1)"/>
+      <ellipse cx="453" cy="255" rx="36" ry="26" fill="rgba(30,20,50,0.85)"/>
+      <text x="453" y="252" text-anchor="middle" font-family="serif" font-size="14" fill="rgba(255,220,100,0.9)" font-style="italic">💡 I get it!</text>
+
+      <!-- ── DECORATIVE ELEMENTS ── -->
+      <!-- Stars/sparkles top right corner -->
+      <g filter="url(#softglow)">
+        <path d="M430 60 L433 70 L443 73 L433 76 L430 86 L427 76 L417 73 L427 70 Z" fill="#ffcc44" opacity="0.7"/>
+        <path d="M460 40 L462 47 L469 49 L462 51 L460 58 L458 51 L451 49 L458 47 Z" fill="#ff8844" opacity="0.6"/>
+        <path d="M490 70 L491 74 L495 75 L491 76 L490 80 L489 76 L485 75 L489 74 Z" fill="#44aaff" opacity="0.55"/>
+      </g>
+
+      <!-- ── AMBIENT LIGHT on wall ── -->
+      <!-- Window light effect (top right) -->
+      <path d="M395 0 L520 0 L520 150 Q470 100 430 80 Q410 60 395 0Z" fill="rgba(255,220,150,0.04)"/>
+
+      <!-- Floor reflection shadow teacher -->
+      <ellipse cx="143" cy="548" rx="50" ry="10" fill="rgba(0,0,0,0.35)"/>
+      <!-- Floor reflection shadow student -->
+      <ellipse cx="350" cy="558" rx="55" ry="10" fill="rgba(0,0,0,0.3)"/>
+
+    </svg>
+  </div>
+</section>
+
+<footer>&copy; 2025 <span>Academya</span> Consultancy. All rights reserved.</footer>
+</div>
+
+<!-- ════════════ 404 PAGE ════════════ -->
+<div class="p404" id="p404">
+  <div class="e-num">404</div>
+  <h2 class="e-title">Page Not Found</h2>
+  <p class="e-sub">Oops! The page you're looking for doesn't exist or may have been moved.</p>
+  <a class="e-back" href="#" onclick="goHome();return false;">← Back to Home</a>
+</div>
+
+<!-- ════════════ FORM MODAL ════════════ -->
+<div class="m-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+  <div class="m-box">
+    <div class="m-head">
+      <h3 id="m-title">Get in Touch</h3>
+      <button class="m-close" onclick="closeForm()" aria-label="Close">&times;</button>
+    </div>
+    <div class="m-body">
+      <div class="m-loader" id="loader">
+        <div class="spin"></div>
+        <span style="font-size:.85rem;color:var(--muted)">Loading form…</span>
+      </div>
+      <iframe id="gForm" src="" title="Academya Form" style="display:none" onload="formReady()"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+const FORM='https://forms.gle/5Xvk9e8cEoLLKuRaA';
+
+function openForm(role){
+  document.getElementById('m-title').textContent=
+    role==='Teacher'?'🎓 Register as a Teacher':'👨‍👩‍👧 Register as Parent / Student';
+  const fr=document.getElementById('gForm'),ld=document.getElementById('loader');
+  ld.style.display='flex';fr.style.display='none';
+  fr.src=FORM;
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+
+function formReady(){
+  document.getElementById('loader').style.display='none';
+  document.getElementById('gForm').style.display='block';
+}
+
+function closeForm(){
+  document.getElementById('modal').classList.remove('on');
+  document.body.style.overflow='';
+  setTimeout(()=>{
+    const f=document.getElementById('gForm');
+    f.src='';f.style.display='none';
+  },300);
+}
+
+document.getElementById('modal').addEventListener('click',function(e){
+  if(e.target===this)closeForm();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeForm();});
+
+/* 404 routing */
+function show404(){
+  document.getElementById('home-page').style.display='none';
+  document.getElementById('p404').classList.add('on');
+}
+function goHome(){
+  document.getElementById('p404').classList.remove('on');
+  document.getElementById('home-page').style.display='';
+  history.pushState('',document.title,window.location.pathname);
+}
+if(location.hash==='#404')show404();
+window.addEventListener('hashchange',()=>location.hash==='#404'?show404():goHome());
+</script>
+</body>
+</html>
