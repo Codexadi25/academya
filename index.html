@@ -406,12 +406,12 @@ footer span{color:var(--red);}
     <div class="btn-grid">
 
       <a class="btn btn-wa"
-         href="https://wa.me/?text=Hi%20Academya%21%20I%27d%20love%20to%20know%20more%20about%20your%20programs."
+         href="https://wa.me/+918081034446?text=Hi%20Academya%21%20I%27d%20love%20to%20know%20more%20about%20your%20programs."
          target="_blank" rel="noopener noreferrer">
         <span class="btn-ico">💬</span> WhatsApp Us
       </a>
 
-      <a class="btn btn-call" href="tel:+911234567890">
+      <a class="btn btn-call" href="tel:+918081034446">
         <span class="btn-ico">📞</span> Call Us
       </a>
 
@@ -424,7 +424,7 @@ footer span{color:var(--red);}
       </button>
 
       <a class="btn btn-comp btn-full"
-         href="https://wa.me/?text=Hi%20Academya%21%20I%27m%20interested%20in%20Competition%20Classes."
+         href="https://wa.me/+918081034446?text=Hi%20Academya%21%20I%27m%20interested%20in%20Competition%20Classes."
          target="_blank" rel="noopener noreferrer">
         <span class="btn-ico">🏆</span> Competition Classes
       </a>
@@ -767,16 +767,10 @@ footer span{color:var(--red);}
 </div>
 
 <script>
-const FORM='https://forms.gle/5Xvk9e8cEoLLKuRaA';
+const FORM='https://forms.gle/49zwE74GrFZhGbXA6';
 
 function openForm(role){
-  document.getElementById('m-title').textContent=
-    role==='Teacher'?'🎓 Register as a Teacher':'👨‍👩‍👧 Register as Parent / Student';
-  const fr=document.getElementById('gForm'),ld=document.getElementById('loader');
-  ld.style.display='flex';fr.style.display='none';
-  fr.src=FORM;
-  document.getElementById('modal').classList.add('on');
-  document.body.style.overflow='hidden';
+  window.location.href = FORM;
 }
 
 function formReady(){
